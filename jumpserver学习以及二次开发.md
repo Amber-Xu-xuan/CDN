@@ -19,7 +19,7 @@ jumpserve = go + python(Django)
 	guacamole：
 
 ### jumpserve
-	#### 用户
+- 用户
 		jumpserve用户（AXE用户）【web界面、ssh登录】
 		客户机管理用户【将命令推送到目标机，ansible执行】 
 		客户机系统用户
@@ -49,10 +49,33 @@ cookie中记录sessionId，将session信息存储在redis中，sessionId存取se
 通过SessionMiddleWare
 - 什么是中间件？
 python的中间件相当于Java中的拦截器
--  配置中间件
+-  如何配置中间件
+配置在setting.py中
+域名相同避免出现跨域访问不到
 
-## python命名规则
-class:CapWords
-Exceptions:CapWords
-Functions:lower_with_under()
-参数：lower_with_under
+
+## webTerminal打开远程主机ssh界面
+1. 用户请求luna获取连接
+2. luna将远程主机的连接信息、登录协议、连接方式、允许的操作等传递给jumpserver
+3. luna创建命令窗口
+4. 通过websocket发起请求，与koko建立连接
+5. koko获取cookie中的sessionID和csrfToken
+6. koko向jumpserver获取用户信息、获取主机资产信息、主机系统用户信息、验证权限、获取命令过滤列表等
+7. koko通过SSH连接主机（go语言的插件）
+
+- luna显示连接成功后进入命令模式，用户输入命令
+1. 检查命令是否有权执行（luna->koko)
+2. 通过websocket传输命令给koko
+3. koko通过SSH远程执行命令
+4. 将主机返回信息打印到luna界面上
+
+
+## webTeminal如何打开远程主机的图形界面
+环境配置：
+1. 目标主机安装vnc远程控制软件
+2. jumpserver部署guacamole组件
+3. nginx配置guacamole路径
+[图片]
+
+
+## 文件管理页面
