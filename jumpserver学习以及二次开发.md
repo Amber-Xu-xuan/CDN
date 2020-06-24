@@ -79,3 +79,16 @@ python的中间件相当于Java中的拦截器
 
 
 ## 文件管理页面
+通过koko操作资产上的文件，设置cookie的sessionID和csrfToken，打开对应网址
+
+## 客户端软件如何通过堡垒机访问远程主机
+客户机输入jumpserver的网址和端口，输入用户名和密码
+koko监听对应端口
+1. 客户端连接koko
+2. 获取用户允许访问的节点
+3. 客户输入指令，发送指令，获取允许访问的主机（不同的指令对应着不同的api）
+4. 用户选择使用的主机，发送指令给koko，koko获取主机账号密码jump server
+
+## 记录在线会话
+koko建立连接之后发送会话建立日志给jumpserver，记录在terminal_session表中
+
